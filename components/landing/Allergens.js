@@ -36,8 +36,8 @@ class Allergens extends Component {
       <Paper style = {paperStyle}>
         <Grid container>
         <Grid item xs={12} align = "center">
-          <Text style={styles.title}> Enter Your Calorie Goals</Text>
-          
+          <Text style={styles.title}> Enter Your Allergens</Text>
+          <h4>"Ex. Peanuts, Apples, Strawberries, Gluten</h4>
           <Inputs
           onChange={this.onDataChange}
           data={this.state.data}

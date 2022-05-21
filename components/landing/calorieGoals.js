@@ -11,7 +11,7 @@ class Allergens extends Component {
     super(props);
 
     this.state = {
-      data:""
+      data:"1600"
     };
     this.onDataChange = this.onDataChange.bind(this);
     
