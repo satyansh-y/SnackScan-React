@@ -7,19 +7,20 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import Name from "./components/landing/landingComp/Name";
-import Email from "./components/landing/landingComp/Email";
-import Number from "./components/landing/landingComp/phoneNumber";
-import Buttons from "./components/landing/landingComp/Button";
-import PasswordInput from "./components/landing/landingComp/PasswordInput";
-// import { black, white } from 'color-name';
+import Name from "./landingComp/Name";
+import Email from "./landingComp/Email";
+import Number from "./landingComp/phoneNumber";
+import Buttons from "./landingComp/Button";
+import PasswordInput from "./landingComp/PasswordInput";
+// import * as firebase from "firebase/app";
+import { auth } from "../../firebase"
 import { Grid, Paper, Avatar, Typography, Link, Button } from "@mui/material";
 // import LockOpenIcon from '@mui/icons-material/LockOpen';
 // import * as Realm from 'realm-web';
 //const Realm = require('realm');
 // const app = new Realm.App({id: "connect-1-aqfdf"});
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
 
@@ -87,10 +88,16 @@ class SignIn extends Component {
     const password = this.state.password;
     let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     let passRegex = new RegExp("^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$");
+    
     this.setState(
       {
-        isEmail: emailRegex.test(email),
-        isPassword: passRegex.test(password),
+        // isEmail: emailRegex.test(email),
+        // isPassword: passRegex.test(password),
+        isEmail: true,
+        isPassword: true,
+        passwordMatch:true
+
+
       },
       () => {
         if (
@@ -102,11 +109,17 @@ class SignIn extends Component {
             isEmailError: "",
             isPasswordError: "",
           });
-          // try {
-          //     app.emailPasswordAuth.registerUser({email, password});
-          //   } catch (error) {
-          //     console.warn('Failed to signup: ', error.message);
-          //   }
+          try {
+              auth
+              .createUserWithEmailAndPassword(this.state.Email, this.state.password)
+              .then(() => {
+                this.props.navigation.navigate('Dashboard')
+              
+              })
+              
+            } catch (error) {
+              console.warn('Failed to SignUp: ', error.message);
+            }
         }
         if (this.state.isEmail === false) {
           console.log("working??");
@@ -185,7 +198,7 @@ class SignIn extends Component {
                   title="Re-enter Password"
                 />
 
-                {/* <Button onClick= {this.save}> Sign Up</Button> */}
+                <Button onClick= {this.save}> Sign Up</Button>
               </Grid>
             </Grid>
           </Paper>
@@ -195,7 +208,7 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default SignUp;
 
 const styles = StyleSheet.create({
   title: {

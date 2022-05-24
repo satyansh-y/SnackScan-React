@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import {Grid, Paper} from '@mui/material';
-import Inputs from './components/landing/landingComp/Input'
+import Inputs from './landingComp/Input'
 
 
 

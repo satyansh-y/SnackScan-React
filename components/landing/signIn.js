@@ -1,10 +1,12 @@
-import { Grid, Paper } from "@mui/material";
+import { Grid, Paper, Button } from "@mui/material";
 import { style } from "@mui/system";
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Buttons from "./components/landing/landingComp/Button";
-import UsernameInput from "./components/landing/landingComp/UsernameInput";
-import PasswordInput from "./components/landing/landingComp/PasswordInput";
+import { StyleSheet, Text, View} from "react-native";
+import Buttons from "./landingComp/Button";
+import UsernameInput from "./landingComp/UsernameInput";
+import PasswordInput from "./landingComp/PasswordInput";
+import {getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "../../firebase";
 
 class SignIn extends Component {
   constructor(props) {
@@ -16,16 +18,27 @@ class SignIn extends Component {
     };
     this.onUserNamechange = this.onUserNamechange.bind(this);
     this.onPasswordchange = this.onPasswordchange.bind(this);
-    
+    this.save = this.save.bind(this);
   }
-  onUserNamechange(e){
-    this.setState({username: e.target.value});
+  onUserNamechange(e) {
+    this.setState({ username: e.target.value });
   }
-  onPasswordchange(e){
-    this.setState({password: e.target.value});
+  onPasswordchange(e) {
+    this.setState({ password: e.target.value });
   }
-
-
+  async save() {
+    console.log("working");
+    const auth = getAuth();
+    try {
+      console.log("working");
+      return signInWithEmailAndPassword(auth, this.state.Email, this.state.password)
+        .then(() => {
+          this.props.navigation.navigate("Allergens");
+        });
+    } catch (error) {
+      console.warn("Failed to SignIn: ", error.message);
+    }
+  }
 
   render() {
     const paperStyle = {
@@ -56,7 +69,7 @@ class SignIn extends Component {
               onChange={this.onPasswordchange}
               password={this.state.password}
             />
-            <Buttons name="Sign In" />
+            <Button onClick={this.save}> Sign In</Button>
           </Grid>
         </Grid>
       </Paper>

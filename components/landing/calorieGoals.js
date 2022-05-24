@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import {Grid, Paper} from '@mui/material';
-import Inputs from './components/landing/landingComp/Input'
+import Inputs from './landingComp/Input'
 
 
 
 
-class Allergens extends Component {
+class Calories extends Component {
   constructor(props) {
     super(props);
 
@@ -54,7 +54,7 @@ class Allergens extends Component {
   }
 }
  
-export default Allergens;
+export default Calories;
 const styles = StyleSheet.create({
   title: {
     fontSize: "50px",
